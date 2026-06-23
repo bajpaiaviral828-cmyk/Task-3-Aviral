@@ -52,7 +52,7 @@
     }
 
     /* Glass Inputs */
-    input[type="password"], textarea { 
+    textarea { 
       width: 100%; 
       padding: 12px; 
       background: rgba(255, 255, 255, 0.05);
@@ -62,22 +62,19 @@
       color: white;
       font-family: inherit;
       transition: all 0.3s ease;
+      height: 100px; 
+      resize: vertical;
     }
-    
-    input[type="password"]::placeholder, textarea::placeholder {
+
+    textarea::placeholder {
       color: rgba(255, 255, 255, 0.5);
     }
 
-    input[type="password"]:focus, textarea:focus {
+    textarea:focus {
       outline: none;
       background: rgba(255, 255, 255, 0.1);
       border-color: rgba(255, 255, 255, 0.5);
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    }
-
-    textarea { 
-      height: 100px; 
-      resize: vertical;
     }
 
     /* Vibrant Button */
@@ -129,11 +126,6 @@
 
 <div class="container">
   <h1>🎨 AI Image Studio</h1>
-  
-  <div class="input-group">
-    <label>Hugging Face API Key</label>
-    <input type="password" id="apiKey" placeholder="hf_xxxxxxxxxxxxxxxxxxxxxx" />
-  </div>
 
   <div class="input-group">
     <label>What do you want to see?</label>
@@ -147,53 +139,37 @@
   </div>
 
   <div class="disclaimer">
-    <strong>Note:</strong> This frontend is for demonstration purposes. It calls the Hugging Face Inference API directly from your browser. In a real production app, API calls should be routed through a backend server to protect your key and handle the binary data streams more safely.
+    <strong>Note:</strong> Because browsers strictly block Hugging Face API keys via CORS, this web demo uses a public image rendering endpoint to bypass browser security. To use your personal Hugging Face API key, run the <code>main.py</code> CLI tool locally!
   </div>
 </div>
 
 <script>
-  async function generateImage() {
-    const apiKey = document.getElementById('apiKey').value;
+  function generateImage() {
     const prompt = document.getElementById('prompt').value;
     const resultArea = document.getElementById('resultArea');
 
-    if (!apiKey || !prompt) {
-      alert("Please enter both an API key and a prompt.");
+    if (!prompt) {
+      alert("Please enter a prompt.");
       return;
     }
 
-    resultArea.innerHTML = "<p><em>Generating image... this might take 10-30 seconds if the model is waking up.</em></p>";
+    resultArea.innerHTML = "<p><em>Generating image... (bypassing CORS)</em></p>";
 
-    // Calling the free Hugging Face Stable Diffusion API directly
-    const url = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0";
-    
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${apiKey}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ inputs: prompt })
-      });
+    // Using Pollinations.ai as a public endpoint because it natively supports browser-based image 
+    // generation without CORS issues or preflight fetch errors!
+    const encodedPrompt = encodeURIComponent(prompt + ", masterpiece, high quality, highly detailed");
+    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true`;
 
-      if (!response.ok) {
-        const err = await response.text();
-        resultArea.innerHTML = `<p style="color:#ff6b6b">API Error: ${response.status} - ${err}</p>`;
-        return;
-      }
-
-      // The API returns raw binary image data
-      const blob = await response.blob();
-      
-      // Convert the binary blob into a URL the browser can display
-      const imageUrl = URL.createObjectURL(blob);
-      
-      resultArea.innerHTML = `<img src="${imageUrl}" alt="Generated Image" />`;
-      
-    } catch (error) {
-      resultArea.innerHTML = `<p style="color:#ff6b6b">Failed to connect: ${error.message}</p>`;
-    }
+    // We can load it directly into an image tag, which completely bypasses the fetch() CORS policy!
+    const img = new Image();
+    img.onload = () => {
+      resultArea.innerHTML = '';
+      resultArea.appendChild(img);
+    };
+    img.onerror = () => {
+      resultArea.innerHTML = `<p style="color:#ff6b6b">Failed to connect to the image server.</p>`;
+    };
+    img.src = imageUrl;
   }
 </script>
 
