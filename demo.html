@@ -4,17 +4,125 @@
   <meta charset="UTF-8">
   <title>Image Generation Studio</title>
   <style>
-    body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; }
-    .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-    h1 { color: #333; }
-    textarea { width: 100%; height: 80px; margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-    button { background-color: #28a745; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-size: 16px; }
-    button:hover { background-color: #218838; }
-    .result { margin-top: 20px; text-align: center; }
-    img { max-width: 100%; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-    .disclaimer { font-size: 0.8em; color: #666; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
-    .input-group { margin-bottom: 15px; }
-    input[type="password"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+    /* Glassmorphism Background */
+    body { 
+      font-family: 'Inter', -apple-system, sans-serif; 
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-attachment: fixed;
+    }
+
+    /* Glass Container */
+    .container { 
+      max-width: 600px; 
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 40px; 
+      border-radius: 20px; 
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      color: white;
+    }
+
+    h1 { 
+      text-align: center;
+      margin-top: 0;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .input-group { 
+      margin-bottom: 20px; 
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9em;
+      letter-spacing: 0.5px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Glass Inputs */
+    input[type="password"], textarea { 
+      width: 100%; 
+      padding: 12px; 
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px; 
+      box-sizing: border-box; 
+      color: white;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+    
+    input[type="password"]::placeholder, textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    input[type="password"]:focus, textarea:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    textarea { 
+      height: 100px; 
+      resize: vertical;
+    }
+
+    /* Vibrant Button */
+    button { 
+      width: 100%;
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      color: white; 
+      border: none; 
+      padding: 14px 20px; 
+      cursor: pointer; 
+      border-radius: 10px; 
+      font-size: 16px; 
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+    }
+
+    button:hover { 
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+    }
+
+    .result { 
+      margin-top: 30px; 
+      text-align: center; 
+      min-height: 50px;
+    }
+
+    img { 
+      max-width: 100%; 
+      border-radius: 10px; 
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .disclaimer { 
+      font-size: 0.8em; 
+      color: rgba(255, 255, 255, 0.6); 
+      margin-top: 30px; 
+      border-top: 1px solid rgba(255, 255, 255, 0.1); 
+      padding-top: 15px; 
+      text-align: center;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
@@ -23,13 +131,13 @@
   <h1>🎨 AI Image Studio</h1>
   
   <div class="input-group">
-    <label>Hugging Face API Key:</label>
-    <input type="password" id="apiKey" placeholder="hf_..." />
+    <label>Hugging Face API Key</label>
+    <input type="password" id="apiKey" placeholder="hf_xxxxxxxxxxxxxxxxxxxxxx" />
   </div>
 
   <div class="input-group">
     <label>What do you want to see?</label>
-    <textarea id="prompt" placeholder="A futuristic city in the clouds, cyberpunk style..."></textarea>
+    <textarea id="prompt" placeholder="A futuristic city in the clouds, cyberpunk style, highly detailed..."></textarea>
   </div>
   
   <button onclick="generateImage()">Generate Image</button>
@@ -54,7 +162,7 @@
       return;
     }
 
-    resultArea.innerHTML = "<p>Generating image... this might take 10-30 seconds if the model is waking up.</p>";
+    resultArea.innerHTML = "<p><em>Generating image... this might take 10-30 seconds if the model is waking up.</em></p>";
 
     // Calling the free Hugging Face Stable Diffusion API
     const url = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0";
@@ -71,7 +179,7 @@
 
       if (!response.ok) {
         const err = await response.text();
-        resultArea.innerHTML = `<p style="color:red">API Error: ${response.status} - ${err}</p>`;
+        resultArea.innerHTML = `<p style="color:#ff6b6b">API Error: ${response.status} - ${err}</p>`;
         return;
       }
 
@@ -84,7 +192,7 @@
       resultArea.innerHTML = `<img src="${imageUrl}" alt="Generated Image" />`;
       
     } catch (error) {
-      resultArea.innerHTML = `<p style="color:red">Failed to connect: ${error.message}</p>`;
+      resultArea.innerHTML = `<p style="color:#ff6b6b">Failed to connect: ${error.message}</p>`;
     }
   }
 </script>
