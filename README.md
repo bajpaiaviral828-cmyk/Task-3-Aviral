@@ -20,7 +20,7 @@ A CLI tool that takes a text prompt and an aspect ratio (like 16:9 or 1:1), conn
 ### 🚀 Live Demo (No installation required!)
 You don't need to install anything to try this out. Just click the link below to open the Glassmorphism UI right in your browser. All you need is a free Hugging Face API key!
 
-👉 **[Try the Live Demo Here](https://raw.githack.com/bajpaiaviral828-cmyk/Task-3-Aviral/main/demo.html)**
+👉 **[Try the Live Demo Here](https://raw.githack.com/bajpaiaviral828-cmyk/Task-3-Aviral/main/demo.html?v=2)**
 
 ### Local Installation
 If you want to run the python CLI tool locally:

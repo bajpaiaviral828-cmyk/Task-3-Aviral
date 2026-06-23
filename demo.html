@@ -157,7 +157,7 @@
 
     // Using Pollinations.ai as a public endpoint because it natively supports browser-based image 
     // generation without CORS issues or preflight fetch errors!
-    const encodedPrompt = encodeURIComponent(prompt + ", masterpiece, high quality, highly detailed");
+    const encodedPrompt = encodeURIComponent(prompt);
     const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true`;
 
     // We can load it directly into an image tag, which completely bypasses the fetch() CORS policy!
