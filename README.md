@@ -16,6 +16,14 @@ A CLI tool that takes a text prompt and an aspect ratio (like 16:9 or 1:1), conn
 5. **Phase 6 (Automated QA):** I used the massive `CLIP ViT-L/14` model from OpenAI to calculate a "Cosine Similarity Score" between the image and the original prompt. *Note: this model is gigabytes large so it takes forever to load the first time!*
 
 ## How to run it
+
+### 🚀 Live Demo (No installation required!)
+You don't need to install anything to try this out. Just click the link below to open the Glassmorphism UI right in your browser. All you need is a free Hugging Face API key!
+
+👉 **[Try the Live Demo Here](https://htmlpreview.github.io/?https://github.com/bajpaiaviral828-cmyk/Task-3-Aviral/blob/main/demo.html)**
+
+### Local Installation
+If you want to run the python CLI tool locally:
 1. `pip install -r requirements.txt` (Warning: PyTorch and Transformers take a while to install).
 2. Get a free Hugging Face API key and put it in `.env`.
 3. Run the pipeline:
