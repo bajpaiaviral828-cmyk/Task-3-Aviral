@@ -164,9 +164,8 @@
 
     resultArea.innerHTML = "<p><em>Generating image... this might take 10-30 seconds if the model is waking up.</em></p>";
 
-    // Using a CORS proxy because browsers (especially Safari) block direct cross-origin API calls from static sites
-    const targetUrl = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0";
-    const url = "https://corsproxy.io/?" + encodeURIComponent(targetUrl);
+    // Calling the free Hugging Face Stable Diffusion API directly
+    const url = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0";
     
     try {
       const response = await fetch(url, {
