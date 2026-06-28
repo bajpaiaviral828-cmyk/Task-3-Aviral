@@ -176,7 +176,7 @@ export default function Home() {
         
         {/* Dynamic Noise Overlay (GIF) */}
         <div 
-          className="pointer-events-none absolute inset-0 z-50 opacity-[0.35] mix-blend-overlay w-full h-full bg-repeat" 
+          className="pointer-events-none absolute inset-0 z-0 opacity-[0.35] mix-blend-overlay w-full h-full bg-repeat" 
           style={{ backgroundImage: "url('/noise.gif')" }} 
         />
 
