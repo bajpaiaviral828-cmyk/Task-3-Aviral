@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { toast } from "sonner";
 import Scene from "@/components/ui/Scene";
-import { FloatingNav } from "@/components/ui/floating-navbar";
+
 import { AIInput } from "@/components/ui/ai-input";
 import { GlareCard } from "@/components/ui/glare-card";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
@@ -75,15 +75,7 @@ export default function Home() {
     // Outer Pure White Canvas (The Bezel)
     <main className="min-h-screen w-full bg-[#ffffff] p-2 md:p-4 text-[#000000] selection:bg-[#000000] selection:text-[#ffffff] box-border">
       
-      <FloatingNav 
-        navItems={[
-          { name: "Cases", link: "#" },
-          { name: "Blog", link: "#" },
-          { name: "People", link: "#" },
-          { name: "Jobs", link: "#" },
-          { name: "Contact", link: "#" },
-        ]} 
-      />
+
 
       {/* Inner Rounded Shell - STICKY HERO */}
       <motion.div 
