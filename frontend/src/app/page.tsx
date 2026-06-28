@@ -200,7 +200,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative w-full aspect-[16/9] overflow-hidden rounded-[20px] group border border-white/10"
+                    className="relative z-[60] w-full aspect-[16/9] overflow-hidden rounded-[20px] group border border-white/10"
                   >
                     <GlareCard className="w-full h-full">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -226,7 +226,7 @@ export default function Home() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="relative w-full aspect-[16/9] rounded-[20px] border border-dotted border-[#ffffff]/20 flex items-center justify-center bg-white/[0.02]"
+                    className="relative z-[60] w-full aspect-[16/9] rounded-[20px] border border-dotted border-[#ffffff]/20 flex items-center justify-center bg-white/[0.02]"
                   >
                     <span className="font-sans text-[#ffffff]/30 text-[14.08px] uppercase tracking-widest">
                       {isGenerating ? "Executing..." : "Awaiting Output"}
