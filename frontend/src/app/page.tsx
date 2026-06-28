@@ -202,23 +202,21 @@ export default function Home() {
                     transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-[60] w-full aspect-[16/9] overflow-hidden rounded-[20px] group border border-white/10"
                   >
-                    <GlareCard className="w-full h-full">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img 
-                        src={imageUrl} 
-                        alt="Generated Visual" 
-                        className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105 grayscale-[50%] hover:grayscale-0"
-                      />
-                      
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                        <button 
-                          onClick={handleDownload}
-                          className="text-[#ffffff] bg-transparent border-[1.5px] border-dotted border-[#ffffff] rounded-[28px] px-8 py-[10px] text-[14.08px] font-sans hover:bg-white hover:text-black hover:border-solid transition-all"
-                        >
-                          Download Asset
-                        </button>
-                      </div>
-                    </GlareCard>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img 
+                      src={imageUrl} 
+                      alt="Generated Visual" 
+                      className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105"
+                    />
+                    
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                      <button 
+                        onClick={handleDownload}
+                        className="text-[#ffffff] bg-transparent border-[1.5px] border-dotted border-[#ffffff] rounded-[28px] px-8 py-[10px] text-[14.08px] font-sans hover:bg-white hover:text-black hover:border-solid transition-all"
+                      >
+                        Download Asset
+                      </button>
+                    </div>
                   </motion.div>
                 ) : (
                   <motion.div
