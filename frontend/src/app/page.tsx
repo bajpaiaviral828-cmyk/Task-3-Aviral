@@ -49,9 +49,6 @@ export default function Home() {
       setImageUrl(url);
     } catch (error: any) {
       console.warn("Backend failed, falling back to public demo API (Pollinations.ai)...");
-      toast("Backend unavailable, using public demo mode...", {
-        description: "Images are generated using a public bypass.",
-      });
       
       // Fallback to Pollinations.ai for live demo purposes
       const encodedPrompt = encodeURIComponent(prompt);
