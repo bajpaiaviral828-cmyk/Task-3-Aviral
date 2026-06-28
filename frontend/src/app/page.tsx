@@ -41,16 +41,24 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || "Failed to generate image");
+        throw new Error("Backend unavailable");
       }
 
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       setImageUrl(url);
     } catch (error: any) {
-      console.error(error);
-      toast.error(error.message || "An error occurred");
+      console.warn("Backend failed, falling back to public demo API (Pollinations.ai)...");
+      toast("Backend unavailable, using public demo mode...", {
+        description: "Images are generated using a public bypass.",
+      });
+      
+      // Fallback to Pollinations.ai for live demo purposes
+      const encodedPrompt = encodeURIComponent(prompt);
+      const publicUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true`;
+      
+      // We set the URL directly. The browser will fetch it when the img tag renders.
+      setImageUrl(publicUrl);
     } finally {
       setIsGenerating(false);
     }
